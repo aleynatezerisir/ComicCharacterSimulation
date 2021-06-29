@@ -1,0 +1,115 @@
+<html>
+<head>
+    <title>Add Image to Canvas Using image() Object</title>
+</head>
+<body>
+    <canvas id="canvas">
+        Sorry. Your browser does not support HTML5 canvas element.
+    </canvas>
+</body>
+
+<canvas id="eye1" width="200" height="200">Your browser does not support the HTML5 canvas tag.</canvas>
+<canvas id="eye2" width="200" height="200">Your browser does not support the HTML5 canvas tag.</canvas>
+
+
+
+
+
+<script>
+    window.onload = function () {
+
+        var img = new Image();
+        img.src = 'baba.jpg';
+        var asd=0,dx=1;
+
+        var time = new Date();
+        var a = time.getMilliseconds();
+        console.log(a);
+
+        img.onload = function () {
+            fill_canvas(img);
+            animate();
+        }
+
+        function fill_canvas(img) {
+            // CREATE CANVAS CONTEXT.
+            var canvas = document.getElementById('canvas');
+            var ctx = canvas.getContext('2d');
+
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            ctx.drawImage(img, 0, 0);
+        }
+
+        function animate(){
+            requestAnimationFrame(animate);
+            
+            if(asd>22 || asd<-22){
+                dx=-dx;
+            }
+            asd+=dx;
+            console.log(asd);
+            draw_eye1();
+            draw_eye2();
+
+        }
+
+        function draw(canvas,context,x,y){
+            var centerX = (canvas.width / 2);
+            var centerY = canvas.height / 2;
+            var radius = 80;
+            
+            context.beginPath();
+            context.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+            context.fillStyle = 'white';
+            context.fill();
+            context.stroke();
+            canvas.style.left = x;
+            canvas.style.top = y;
+            canvas.style.position = "absolute";
+            //orta çember
+            
+            radius = 50;
+            
+            context.beginPath();
+            context.arc(centerX+asd, centerY+asd, radius, 0, 2 * Math.PI);
+            context.fillStyle = '#f4ea8e';
+            context.fill();
+            context.stroke();
+            canvas.style.left = x;
+            canvas.style.top = y;
+            canvas.style
+            canvas.style.position = "absolute";
+            //iç çember
+            radius = 40;
+            
+            context.beginPath();
+            context.arc(centerX+asd, centerY+asd, radius, 0, 2 * Math.PI);
+            context.fillStyle = 'black';
+            context.fill();
+            context.stroke();
+            canvas.style.left = x;
+            canvas.style.top = y;
+            canvas.style.position = "absolute";            
+        }
+
+        function draw_eye1(){
+            var x="358px",y="293px";
+            var canvas = document.getElementById("eye1");
+            var context = canvas.getContext("2d");
+            context.clearRect(0,0,innerWidth,innerHeight);
+            draw(canvas,context,x,y);
+        }
+
+        function draw_eye2(){
+            var x="605px",y="288px";
+            var canvas = document.getElementById("eye2");
+            var context = canvas.getContext("2d");
+            context.clearRect(0,0,innerWidth,innerHeight);
+            draw(canvas,context,x,y);
+        }
+
+    }
+</script>
+</html>
